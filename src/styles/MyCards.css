@@ -1,0 +1,45 @@
+.name-page {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.myCards {
+  background-color: #d5d5d3;
+  width: 45vw;
+  height: 95vh;
+
+  margin: 0 auto;
+  margin-top: 20px;
+  padding: 50px 50px;
+  border-radius: 2%;
+}
+.container-myCards {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 30px;
+}
+.btn-myCards {
+  width: 50%;
+  margin-top:20px;
+}
+.btn-myCards div {
+  margin: 0 auto;
+
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.btn-myCards button {
+  background-color: #444444;
+  color: #ffffff;
+  width: 200px;
+  height: 70px;
+  margin: 0 auto;
+
+  border-radius: 7px;
+  font-size: 20px;
+  border: none;
+  margin-bottom: 50px;
+}

@@ -1,0 +1,46 @@
+.card {
+  width: 250px;
+  height: 150px;
+
+  padding: 10px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+.black {
+  background-color: #000000;
+}
+.gold {
+  background-color: rgb(146, 129, 31);
+}
+.silver {
+  background-color: silver;
+}
+.card div {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 300;
+  margin-bottom: 5px;
+}
+.card h1 {
+  font-size: 15px;
+  color: #ffffff;
+}
+.number-card {
+  width: 150px;
+  margin: 0 auto;
+}
+.term {
+  width: 40px;
+  margin: 0 auto;
+}
+.infoAboutCard {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.amount-card p {
+  font-size: 12px;
+}
+.card img {
+  width: 40px;
+}

@@ -1,0 +1,13 @@
+.container-contragents{
+    background-color: #d5d5d3;
+    width: 45vw;
+    height: 95vh;
+  
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 50px 50px;
+    border-radius: 2%;
+}
+.list-contragents{
+    margin-top: 30px;
+}

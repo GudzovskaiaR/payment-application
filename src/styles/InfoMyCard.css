@@ -1,0 +1,19 @@
+.container-infoMyCard{
+    background-color: #d5d5d3;
+    width: 45vw;
+    height: 95vh;
+  
+    margin: 0 auto;
+    margin-top: 20px;
+    padding: 50px 50px;
+    border-radius: 2%;
+}
+
+
+.container-infoMyCard p{
+margin-top: 15px;
+ color: #121ca4;
+font-weight: bolder;
+    font-size: 22px;
+
+}
