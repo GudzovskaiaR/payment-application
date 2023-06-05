@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { delCard, addCard } from '../../store/myCardsSlice';
+import { delCard } from '../../store/myCardsSlice';
 import Card from './Card';
 import { useState } from 'react';
 
@@ -29,23 +29,26 @@ const MyCards = ({ myCards }) => {
       <div className="container-myCards">
         <div className="listMyCards">
           {myCards.map((card) => (
-            <div>
+            <div key={card.id}>
               <input
+                id={card.id}
                 type="radio"
                 name="ca"
                 onChange={(e) => setCardNumberDel(card.cardNumber)}
-              />
-              <Card
-                key={card.cardNumber}
-                firstName={card.firstName}
-                secondName={card.secondName}
-                cardNumber={card.cardNumber}
-                bank={card.bank}
-                typePaymentSystem={card.typePaymentSystem}
-                typeCard={card.typeCard}
-                availableSum={card.availableSum}
-                endDate={card.endDate}
-              />
+              />{' '}
+              <label htmlFor={card.id}>
+                <Card
+                  key={card.id}
+                  firstName={card.firstName}
+                  secondName={card.secondName}
+                  cardNumber={card.cardNumber}
+                  bank={card.bank}
+                  typePaymentSystem={card.typePaymentSystem}
+                  typeCard={card.typeCard}
+                  availableSum={card.availableSum}
+                  endDate={card.endDate}
+                />
+              </label>
             </div>
           ))}
         </div>
@@ -55,19 +58,19 @@ const MyCards = ({ myCards }) => {
           </div>
 
           <div className="btn-add">
-            <Link to={`/${myCards[0].secondName}/addcard`}>
+            <Link to={`/${myCards[0].secondName}/addCard`}>
               <button>add</button>
             </Link>
           </div>
 
           <div className="btn-edit">
-            <Link to="/editCard">
+            <Link to={`/${myCards[0].secondName}/${cardNumberDel}`}>
               {' '}
               <button>edit</button>
             </Link>
           </div>
           <div className="btn-info">
-            <Link to="/infomycard">
+            <Link to={`/${myCards[0].secondName}/infomycard/${cardNumberDel}`}>
               {' '}
               <button>info</button>
             </Link>

@@ -1,11 +1,19 @@
-import '../../styles/Contragent.css'
-const Contragent = ({ firstName, secondName, cardNumberContragent, balance }) => {
+import '../../styles/Contragent.css';
+const Contragent = ({
+  firstName,
+  secondName,
+  cardNumberContragent,
+  balance,
+}) => {
   return (
     <div className="container-contragent">
-      <p>
+      <div>
         {' '}
-        {firstName} {secondName}: {cardNumberContragent}. Transfer sum: {balance}
-      </p>
+        {firstName} {secondName}
+      </div>
+      <div> {cardNumberContragent}</div>
+      <div>Transfer sum: {balance}</div>
+      <div></div>
     </div>
   );
 };

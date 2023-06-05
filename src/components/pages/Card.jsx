@@ -7,12 +7,9 @@ const Card = ({
   typeCard,
   availableSum,
   endDate,
-  setMyCardForPayment
 }) => {
-  
- 
   return (
-    <div className={`card ${typeCard}` }  onClick={() => setMyCardForPayment({number: cardNumber, sum: availableSum})}>
+    <div className={`card ${typeCard}`}>
       <div className="name-bank">
         <h1>{bank}</h1>
       </div>

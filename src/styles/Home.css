@@ -89,19 +89,22 @@ h1 {
   color: #f00000;
   padding: 10px;
 }
-.item-listContragents{
+.item-listContragents {
   display: flex;
- 
 }
 .containerCA-btn {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
+  width: 650px;
+  height: 150px;
 
-  width: 100%;
   padding: 15px;
   background-color: #fdd947;
   border-radius: 5px 50px;
   align-items: center;
   justify-content: center;
-  margin-top: 20px;
+  margin-top: 50px;
   font-size: 17px;
 }
 /* .containerCA-btn p {
@@ -119,11 +122,14 @@ h1 {
 }
 .container-cards {
   width: 100%;
-  height: 250px;
+  height: 180px;
+  padding-top: 20px;
   display: flex;
+  flex-wrap: wrap;
+  overflow: auto;
   background-color: #fdd947;
   justify-content: space-around;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 50px;
   border-radius: 5px 40px;
 }

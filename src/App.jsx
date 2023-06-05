@@ -8,11 +8,12 @@ import Home from './components/pages/Home';
 import Contragents from './components/pages/Contragents';
 import AddCard from './components/pages/AddCard';
 import InfoMyCard from './components/pages/InfoMyCard';
+import EditCard from './components/pages/EditCard';
 
 function App() {
   const myCards = useSelector((state) => state.myCards.myCards);
   const contragents = useSelector((state) => state.contragents.contragents);
-
+ 
   return (
     <Routes>
       <Route
@@ -24,8 +25,12 @@ function App() {
         path="/contragents"
         element={<Contragents contragents={contragents} />}
       />
-      <Route path="/:mycard/addcard" element={<AddCard myCards={myCards} />} />
-      <Route path="/infomycard" element={<InfoMyCard />} />
+      <Route path="/:mycard/addCard" element={<AddCard myCards={myCards} />} />
+      <Route
+        path="/:mycard/:numbercard"
+        element={<EditCard myCards={myCards} />}
+      />
+      <Route path="/:mycard/infomycard/:numbercard" element={<InfoMyCard myCards={myCards}/>} />
     </Routes>
   );
 }
