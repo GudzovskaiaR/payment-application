@@ -1,12 +1,11 @@
 import '../../styles/Home.css';
 import '../../styles/Card.css';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { changeBalanceMyCard } from '../../store/myCardsSlice';
 import { changeSum } from '../../store/contragentsSlice';
-// import ListMyCard from '../ListMyCard';
 import Card from './Card';
 import Contragent from './Conragent';
 
@@ -15,6 +14,7 @@ const Home = ({ myCards, contragents }) => {
     number: '',
     sum: '',
   });
+  const [transactionData, setTransactionData] = useState([]);
   const [cardNumberContragent, setCardNumberContragent] = useState('');
   const [validationPayment, setValidationPayment] = useState('');
   const {
@@ -24,12 +24,53 @@ const Home = ({ myCards, contragents }) => {
     formState: { errors },
   } = useForm({ defaultValues: {}, mode: 'onChange' });
   const dispatch = useDispatch();
+  useEffect(() => {
+    if (localStorage.getItem('transaction')) {
+      const storeTransactionData = JSON.parse(
+        localStorage.getItem('transaction')
+      );
+
+      setTransactionData(storeTransactionData);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (transactionData.length) {
+      localStorage.setItem('transaction', JSON.stringify(transactionData));
+    }
+  }, [transactionData]);
   const formSubmit = (data) => {
     const number = myCardForPayment.number;
     const transferSum = data.transferSum;
+    const cardFrom = myCards.filter(
+      (card) => card.cardNumber === myCardForPayment.number
+    );
+    const cardTo = contragents.filter(
+      (card) => card.cardNumberContragent === cardNumberContragent
+    );
     if (!cardNumberContragent) {
       return setValidationPayment('Choose CA for payment');
     }
+    const currentDateTime = new Date();
+
+    const year = currentDateTime.getFullYear();
+    const month = ('0' + (currentDateTime.getMonth() + 1)).slice(-2);
+    const day = ('0' + currentDateTime.getDate()).slice(-2);
+    const hours = ('0' + currentDateTime.getHours()).slice(-2);
+    const minutes = ('0' + currentDateTime.getMinutes()).slice(-2);
+    const seconds = ('0' + currentDateTime.getSeconds()).slice(-2);
+
+    const formattedDateTime = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+
+    setTransactionData([
+      ...transactionData,
+      {
+        date: formattedDateTime,
+        cardFrom: cardFrom,
+        cardTo: cardTo,
+        transferSum: transferSum,
+      },
+    ]);
 
     dispatch(changeBalanceMyCard({ transferSum, number }));
     dispatch(changeSum({ transferSum, cardNumberContragent }));
@@ -56,6 +97,9 @@ const Home = ({ myCards, contragents }) => {
         </Link>
         <Link to="/contragents">
           <button className="ca-card">CA</button>
+        </Link>
+        <Link to="/history">
+          <button className="ca-card">History</button>
         </Link>
       </div>
       <form onSubmit={handleSubmit(formSubmit)}>

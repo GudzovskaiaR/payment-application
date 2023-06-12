@@ -29,7 +29,7 @@ const contragentsSlice = createSlice({
     },
     editCard(state, action) {
       state.contragents = state.contragents.map((item) => {
-        if (item.cardNumberContragent === action.payload.numbercard) {
+        if (item.id === action.payload.card.id) {
           return action.payload.card;
         }
         return item;

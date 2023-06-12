@@ -53,28 +53,34 @@ const MyCards = ({ myCards }) => {
           ))}
         </div>
         <div className="btn-myCards">
-          <div className="btn-delete">
-            <button onClick={delChooseCard}>delete</button>
-          </div>
-
           <div className="btn-add">
             <Link to={`/${myCards[0].secondName}/addCard`}>
               <button>add</button>
             </Link>
           </div>
-
-          <div className="btn-edit">
-            <Link to={`/${myCards[0].secondName}/${cardNumberDel}`}>
-              {' '}
-              <button>edit</button>
-            </Link>
-          </div>
-          <div className="btn-info">
-            <Link to={`/${myCards[0].secondName}/infomycard/${cardNumberDel}`}>
-              {' '}
-              <button>info</button>
-            </Link>
-          </div>
+          {cardNumberDel ? (
+            <>
+              <div className="btn-delete">
+                <button onClick={delChooseCard}>delete</button>
+              </div>
+              <div className="btn-edit">
+                <Link to={`/${myCards[0].secondName}/${cardNumberDel}`}>
+                  {' '}
+                  <button>edit</button>
+                </Link>
+              </div>
+              <div className="btn-info">
+                <Link
+                  to={`/${myCards[0].secondName}/infomycard/${cardNumberDel}`}
+                >
+                  {' '}
+                  <button>info</button>
+                </Link>
+              </div>
+            </>
+          ) : (
+            ''
+          )}
         </div>
       </div>
     </div>

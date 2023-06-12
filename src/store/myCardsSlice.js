@@ -3,7 +3,7 @@ import myCards from '../components/data/myCardsData';
 const myCardsSlice = createSlice({
   name: 'myCards',
   initialState: {
-    myCards: myCards
+    myCards: myCards,
   },
   reducers: {
     changeBalanceMyCard(state, action) {
@@ -19,15 +19,14 @@ const myCardsSlice = createSlice({
       state.myCards.push(action.payload.card);
     },
     delCard(state, action) {
-      
       state.myCards = state.myCards.filter(
         (card) => card.cardNumber !== action.payload.cardNumberDel
       );
     },
     editCard(state, action) {
+      
       state.myCards = state.myCards.map((item) => {
-        if (item.cardNumber === action.payload.numbercard) {
-          
+        if (item.id === action.payload.card.id) {
           return action.payload.card;
         }
         return item;

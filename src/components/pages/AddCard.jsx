@@ -2,10 +2,11 @@ import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-
+import { useNavigate } from 'react-router-dom';
 import { addCard } from '../../store/myCardsSlice';
 import '../../styles/AddCard.css';
 const AddCard = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -28,6 +29,7 @@ const AddCard = () => {
       firstName: 'RUSLANA',
       secondName: 'HUDZOVSKA',
     });
+    navigate('/:mycard');
   };
   const errorsHandler = (data) => {};
 
@@ -77,31 +79,20 @@ const AddCard = () => {
               required: 'is required',
             })}
           />
+          {errors.bank && <p>{errors.bank?.message}</p>}
         </div>
 
         <div className="chooseTypePaymenSystemCard">
           <p>Виберіть платіжну систему карти</p>
-          <div id="masterCard" className="container-btnChooseSystem">
-            <input
-              type="radio"
-              name="paymentSystem"
-              value="./images/1.png"
+          <div className="container-btnChooseSystem">
+          <select
               {...register('typePaymentSystem', {
                 required: 'is required',
               })}
-            />{' '}
-            <label id="visa" for="masterCard">
-              MasterCard
-            </label>
-            <input
-              type="radio"
-              name="paymentSystem"
-              value="./images/2.png"
-              {...register('typePaymentSystem', {
-                required: 'is required',
-              })}
-            />{' '}
-            <label for="visa">Visa</label>
+            >
+              <option value="./images/1.png">MasterCard</option>
+              <option value="./images/2.png">Visa</option>
+            </select>
           </div>
           {errors.typePaymentSystem && (
             <p>{errors.typePaymentSystem?.message}</p>
@@ -110,37 +101,15 @@ const AddCard = () => {
         <div className="chooseTypeCard">
           <p>Виберіть вид карти</p>
           <div className="container-btnChooseTypeCard">
-            {' '}
-            <input
-              id="silverButton"
-              type="radio"
-              name="typeCard"
-              value="silver"
-              {...register('typeCard', {
-                required: 'is required',
-              })}
-            />{' '}
-            <label htmlFor="silverButton">Silver</label>
-            <input
-              id="goldButton"
-              type="radio"
-              name="typeCard"
-              value="gold"
-              {...register('typeCard', {
-                required: 'is required',
-              })}
-            />{' '}
-            <label htmlFor="goldButton">Gold</label>
-            <input
-              id="blackButton"
-              type="radio"
-              name="typeCard"
-              value="black"
-              {...register('typeCard', {
-                required: 'is required',
-              })}
-            />{' '}
-            <label htmlFor="blackButton">Black</label>
+          <select
+            {...register('typeCard', {
+              required: 'is required',
+            })}
+          >
+            <option value="silver">Silver</option>
+            <option value="gold">Gold</option>
+            <option value="black">Black</option>
+          </select>
           </div>
           {errors.typeCard && <p>{errors.typeCard?.message}</p>}
         </div>
@@ -151,8 +120,6 @@ const AddCard = () => {
             className="formInput"
             placeholder="Enter sum"
             {...register('availableSum', { required: 'is required' })}
-            // value={card.availableSum}
-            // onChange={(e) => setCard({ ...card, availableSum: e.target.value })}
           />
           {errors.availableSum && <p>{errors.availableSum?.message}</p>}
         </div>

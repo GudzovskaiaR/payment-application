@@ -3,14 +3,16 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import '../../styles/Contragents.css';
 import Contragent from './Conragent';
+
 import { delCard } from '../../store/contragentsSlice';
 
 const Contragents = ({ contragents }) => {
   const [cardNumber, setCardNumber] = useState();
   const dispatch = useDispatch();
-  console.log(contragents);
+
   const delChooseCard = () => {
     dispatch(delCard({ cardNumber }));
+    setCardNumber('');
   };
   return (
     <div className="container-contragents">
@@ -50,24 +52,29 @@ const Contragents = ({ contragents }) => {
           ))}
         </div>
         <div className="btn-myCards">
-          <div className="btn-delete">
-            <button onClick={() => delChooseCard()}>delete</button>
-          </div>
-
           <div className="btn-add">
-            <button>add</button>
-          </div>
-
-          <div className="btn-edit">
-            {' '}
-            <button>edit</button>
-          </div>
-          <div className="btn-info">
-            <Link to="/infomycard">
+            <Link to="/contragents/addcontragent">
               {' '}
-              <button>info</button>
+              <button>add</button>
             </Link>
           </div>
+
+          {cardNumber ? (
+            <>
+              {' '}
+              <div className="btn-delete">
+                <button onClick={() => delChooseCard()}>delete</button>
+              </div>
+              <div className="btn-edit">
+                {' '}
+                <Link to={`/contragents/editcontragent/${cardNumber}`}>
+                  <button>edit</button>
+                </Link>
+              </div>
+            </>
+          ) : (
+            ''
+          )}
         </div>
       </div>
     </div>

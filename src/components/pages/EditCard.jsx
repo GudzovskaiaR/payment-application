@@ -1,18 +1,14 @@
 import { useParams } from 'react-router-dom';
-import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { editCard } from '../../store/myCardsSlice';
 import { Link } from 'react-router-dom';
-import { hasFormSubmit } from '@testing-library/user-event/dist/utils';
 
 const EditCard = ({ myCards }) => {
   const { numbercard } = useParams();
-  const cardForEdit = myCards.filter(
-    (item) => item.cardNumber === numbercard
-  )[0];
-  const [card, setCard] = useState(cardForEdit);
-
+  const myCard = myCards.filter((item) => item.cardNumber === numbercard)[0];
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -20,22 +16,25 @@ const EditCard = ({ myCards }) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      id: card.id,
+      id: myCard.id,
       firstName: 'RUSLANA',
       secondName: 'HUDZOVSKA',
+      cardNumber: myCard.cardNumber,
+      bank: myCard.bank,
+      typePaymentSystem: myCard.typePaymentSystem,
+      typeCard: myCard.typeCard,
+      availableSum: myCard.availableSum,
+      endDate: myCard.endDate,
     },
     mode: 'onChange',
   });
 
   const dispatch = useDispatch();
   const formSubmit = (card) => {
+    
     dispatch(editCard({ card }));
+    navigate('/:mycard');
   };
-  // const handlerEditCard = (event) => {
-  //   event.preventDefault();
-
-  //   dispatch(editCard({ card, numbercard }));
-  // };
 
   return (
     <div className="container-addCard">
@@ -56,10 +55,9 @@ const EditCard = ({ myCards }) => {
             містити тільки цифри)
           </p>
           <input
+            type="number"
             className="formInput"
             placeholder=""
-            value={card.cardNumber}
-            onChange={(e) => setCard({ ...card, cardNumber: e.target.value })}
             maxLength={16}
             {...register('cardNumber', {
               required: 'is required',
@@ -73,59 +71,78 @@ const EditCard = ({ myCards }) => {
               },
             })}
           />
+          {errors.cardNumber && <p>{errors.cardNumber?.message}</p>}
         </div>
         <div>
           <p>Оновіть назву банку</p>
           <input
             className="formInput"
             placeholder=""
-            value={card.bank}
-            onChange={(e) => setCard({ ...card, bank: e.target.value })}
+            {...register('bank', {
+              required: 'is required',
+            })}
           />
+          {errors.bank && <p>{errors.bank?.message}</p>}
         </div>
 
         <div className="chooseTypePaymenSystemCard">
           <p>Оновіть платіжну систему карти</p>
           <div className="container-btnChooseSystem">
             <select
-              value={card.typePaymentSystem}
-              onChange={(e) =>
-                setCard({ ...card, typePaymentSystem: e.target.value })
-              }
+              {...register('typePaymentSystem', {
+                required: 'is required',
+              })}
             >
               <option value="./images/1.png">MasterCard</option>
               <option value="./images/2.png">Visa</option>
             </select>
           </div>
+          {errors.typePaymentSystem && (
+            <p>{errors.typePaymentSystem?.message}</p>
+          )}
         </div>
         <div className="chooseTypeCard">
           <p>Оновіть вид карти</p>
           <select
-            value={card.typeCard}
-            onChange={(e) => setCard({ ...card, typeCard: e.target.value })}
+            {...register('typeCard', {
+              required: 'is required',
+            })}
           >
             <option value="silver">Silver</option>
             <option value="gold">Gold</option>
             <option value="black">Black</option>
           </select>
         </div>
+        {errors.typeCard && <p>{errors.typeCard?.message}</p>}
         <div>
           <p>Оновіть доступну суму</p>
           <input
             className="formInput"
             placeholder="Enter sum"
-            value={card.availableSum}
-            onChange={(e) => setCard({ ...card, availableSum: e.target.value })}
+            {...register('availableSum', {
+              required: 'is required',
+              pattern: {
+                value: /^[0-9]+$/,
+                message: 'required only number',
+              },
+            })}
           />
         </div>
+        {errors.availableSum && <p>{errors.availableSum?.message}</p>}
         <div>
           <p>Оновіть термін дії карти в форматі ММ/РР</p>
           <input
             className="formInput"
             placeholder="Enter end date"
-            value={card.endDate}
-            onChange={(e) => setCard({ ...card, endDate: e.target.value })}
+            {...register('endDate', {
+              required: 'is required',
+              pattern: {
+                value: /^([0-9]{2})\/([0-9]{2})$/,
+                message: 'Введіть термін дії карти у форматі ММ/РР',
+              },
+            })}
           />
+          {errors.endDate && <p>{errors.endDate.message}</p>}
         </div>
         <button className="btn-addCard">Edit card</button>
       </form>
